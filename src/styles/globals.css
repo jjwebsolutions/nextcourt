@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Tailwind class */
+
+@layer components {
+  .btn {
+    @apply rounded bg-darkest px-4 py-2 font-bold text-lightest hover:m-0 hover:bg-light;
+  }
+}
+
+/* Custom css */
+html {
+  background-color: #eeeeee;
+}
+
+body {
+  font-family: "Helvetica";
+}
