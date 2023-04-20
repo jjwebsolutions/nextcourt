@@ -1,3 +1,5 @@
+import Calendar from "../../components/Calendar";
+
 // Display reserve page
 export default function Reserve() {
   return (
@@ -8,7 +10,7 @@ export default function Reserve() {
           below
         </p>
         <div className="flex   justify-center space-x-24 ">
-          <h1>Calendrier</h1>
+          <Calendar />
         </div>
         <div className="mt-24 flex justify-center text-3xl font-bold text-darkest">
           Call us: XXX-XXX-XXX

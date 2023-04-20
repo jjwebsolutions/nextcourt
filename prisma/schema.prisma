@@ -66,3 +66,16 @@ model VerificationToken {
 
     @@unique([identifier, token])
 }
+
+model Day {
+    id         String  @id @default(cuid())
+    dateFormat String @unique
+    slots      Json
+}
+
+model Order {
+    id         String  @id @default(cuid())
+    date       String
+    slot       Json
+    username   String @unique
+}
