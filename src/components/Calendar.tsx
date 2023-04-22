@@ -5,7 +5,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { format } from "date-fns";
 import { api } from "~/utils/api";
-
+import Sessions from "./Sessions";
 // Display the calendar
 function ReserveCalendar(): JSX.Element {
   const [date, onChange] = useState<Date | number>(new Date());
@@ -13,8 +13,6 @@ function ReserveCalendar(): JSX.Element {
   const [dateFormat, setDateFormat] = useState<string>("");
 
   const [slots, setSlots] = useState([] as any);
-
-  console.log(dateFormat);
 
   api.day.getSlots.useQuery({ dateFormat: dateFormat }, {
     onSuccess: (data) => {
@@ -24,9 +22,6 @@ function ReserveCalendar(): JSX.Element {
   } as {
     onSuccess: (data: any) => void;
   });
-  useEffect(() => {
-    console.log(dataSession);
-  }, [dataSession]);
 
   useEffect(() => {
     setDateFormat(format(date, "yyyy-MM-dd"));
@@ -34,7 +29,6 @@ function ReserveCalendar(): JSX.Element {
 
   const handleDay = async () => {
     if (slots.length > 1) {
-      console.log(slots);
       setDataSession({ date: dateFormat, slots: slots });
     } else {
       setDataSession({
@@ -77,10 +71,9 @@ function ReserveCalendar(): JSX.Element {
                 }
               }}
             />
-            <p>Selected date: {date.toString()}</p>
           </div>
 
-          <h1>Sessions componant with dataSessions</h1>
+          <Sessions dataSessions={dataSession} />
         </div>
       </div>
     </>

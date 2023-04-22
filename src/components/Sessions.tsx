@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { redirect } from "next/navigation";
 import { getSession, useSession } from "next-auth/react";
+import { check } from "prettier";
+import { MouseEventHandler } from "react";
 // env variables
 const API = process.env.REACT_APP_API;
 
@@ -13,21 +15,25 @@ function Sessions({ dataSessions }: { dataSessions: Object }) {
   // State that store what sessions are checked
   const [checkedSessions, setCheckedSessions] = useState([] as any);
 
-  // Get data from day clicked and checked sessions and update data state with new infos
-  const handleClick = async (req: NextApiRequest, res: NextApiResponse) => {
-    // Get data from the user
-    const session = await getSession({ req });
+  const getUser = async () => {
+    const session = await getSession();
     if (!session) {
-      res.status(401).json({ error: "Unauthorized" });
-      return;
+      redirect("/");
     }
+    return session.user;
+  };
+
+  // Get data from day clicked and checked sessions and update data state with new infos
+  const handleClick: MouseEventHandler<HTMLButtonElement> = async () => {
     // Get user infos
-    const user = session.user;
+    const user = await getUser();
+    console.log(user);
 
     const dataUpdate = data;
     if (checkedSessions) {
       // Update the sessions available for the day in data
-      checkedSessions.forEach((element) => {
+
+      checkedSessions.forEach((element: string) => {
         dataUpdate.slots.forEach(
           (slot: { slot: string; available: boolean }) => {
             if (slot.slot === element) {
@@ -62,13 +68,13 @@ function Sessions({ dataSessions }: { dataSessions: Object }) {
   };
 
   // Handle change when user check or uncheck a sessions and store in checkedSessions
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
 
     if (checked) {
-      setCheckedSessions((pre) => [...pre, value]);
+      setCheckedSessions((pre: []) => [...pre, value]);
     } else {
-      setCheckedSessions((pre) => {
+      setCheckedSessions((pre: []) => {
         return [...pre.filter((slot) => slot !== value)];
       });
     }
@@ -101,27 +107,29 @@ function Sessions({ dataSessions }: { dataSessions: Object }) {
               </>
             ) : (
               // Check if each session is available or not
-              data.slots.map((session, i) => {
-                return (
-                  <li className=" m-1 flex p-1 shadow" key={i}>
-                    <div className="mr-2">{session.slot}</div>
-                    {session.available === true ? (
-                      <>
-                        <p className="mr-5">Available</p>
-                        <input
-                          value={session.slot}
-                          onChange={handleChange}
-                          type="checkbox"
-                        />
-                      </>
-                    ) : (
-                      <>
-                        <p>Taken</p>
-                      </>
-                    )}
-                  </li>
-                );
-              })
+              data.slots.map(
+                (session: { slot: string; available: boolean }, i: number) => {
+                  return (
+                    <li className=" m-1 flex p-1 shadow" key={i}>
+                      <div className="mr-2">{session.slot}</div>
+                      {session.available === true ? (
+                        <>
+                          <p className="mr-5">Available</p>
+                          <input
+                            value={session.slot}
+                            onChange={handleChange}
+                            type="checkbox"
+                          />
+                        </>
+                      ) : (
+                        <>
+                          <p>Taken</p>
+                        </>
+                      )}
+                    </li>
+                  );
+                }
+              )
             )}
           </ul>
         </div>
