@@ -15,7 +15,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 // Display the calendar
 function ReserveCalendar(): JSX.Element {
-  const [date, onChange] = useState<Date | string>(new Date());
+  const [date, onChange] = useState<Date | number>(new Date());
   const [dataSession, setDataSession] = useState([] as any);
   const [dateFormat, setDateFormat] = useState<string>("");
 
@@ -23,15 +23,14 @@ function ReserveCalendar(): JSX.Element {
 
   console.log(dateFormat);
 
-  api.day.getSlots.useQuery(
-    { dateFormat: dateFormat },
-    {
-      onSuccess: (data) => {
-        setSlots(data);
-      },
-      queryKey: [dateFormat] as [string],
-    }
-  );
+  api.day.getSlots.useQuery({ dateFormat: dateFormat }, {
+    onSuccess: (data) => {
+      setSlots(data);
+    },
+    queryKey: [dateFormat] as [string],
+  } as {
+    onSuccess: (data: any) => void;
+  });
   useEffect(() => {
     console.log(dataSession);
   }, [dataSession]);
@@ -78,9 +77,14 @@ function ReserveCalendar(): JSX.Element {
             <Calendar
               locale="en-GB"
               minDate={new Date()}
-              onChange={(value) => onChange(value)}
+              onChange={(value) => {
+                if (typeof value === "number" || value instanceof Date) {
+                  onChange(value);
+                  return value;
+                }
+              }}
             />
-            <p>Selected date: {date.toDateString()}</p>
+            <p>Selected date: {date.toString()}</p>
           </div>
 
           <h1>Sessions componant with dataSessions</h1>
