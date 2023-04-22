@@ -11,7 +11,6 @@ import { format } from "date-fns";
 const API = process.env.NEXTAUTH_URL;
 import { api } from "~/utils/api";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-// Create a function to get the slots for the day clicked by user with prisma query and return the data
 
 // Display the calendar
 function ReserveCalendar(): JSX.Element {
