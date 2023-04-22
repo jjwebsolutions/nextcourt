@@ -12,7 +12,7 @@ function ReserveCalendar(): JSX.Element {
   const [dataSession, setDataSession] = useState([] as any);
   const [dateFormat, setDateFormat] = useState<string>("");
 
-  const [slots, setSlots] = useState([] as any);
+  const [slots, setSlots] = useState([]);
 
   api.day.getSlots.useQuery({ dateFormat: dateFormat }, {
     onSuccess: (data) => {
@@ -20,14 +20,14 @@ function ReserveCalendar(): JSX.Element {
     },
     queryKey: [dateFormat] as [string],
   } as {
-    onSuccess: (data: any) => void;
+    onSuccess: (data: []) => void;
   });
 
   useEffect(() => {
     setDateFormat(format(date, "yyyy-MM-dd"));
   }, [date]);
 
-  const handleDay = async () => {
+  const handleDay = () => {
     if (slots.length > 1) {
       setDataSession({ date: dateFormat, slots: slots });
     } else {

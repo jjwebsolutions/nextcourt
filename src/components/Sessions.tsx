@@ -1,10 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import type { NextApiRequest, NextApiResponse } from "next";
 import { redirect } from "next/navigation";
 import { getSession, useSession } from "next-auth/react";
-import { check } from "prettier";
 import { MouseEventHandler } from "react";
 // env variables
 const API = process.env.REACT_APP_API;
@@ -13,7 +11,7 @@ function Sessions({ dataSessions }: { dataSessions: Object }) {
   // data: day clicked by user and sessions available for this day
   const [data, setData] = useState([] as any);
   // State that store what sessions are checked
-  const [checkedSessions, setCheckedSessions] = useState([] as any);
+  const [checkedSessions, setCheckedSessions] = useState<string[]>([]);
 
   const getUser = async () => {
     const session = await getSession();
@@ -27,7 +25,6 @@ function Sessions({ dataSessions }: { dataSessions: Object }) {
   const handleClick: MouseEventHandler<HTMLButtonElement> = async () => {
     // Get user infos
     const user = await getUser();
-    console.log(user);
 
     const dataUpdate = data;
     if (checkedSessions) {
@@ -72,9 +69,11 @@ function Sessions({ dataSessions }: { dataSessions: Object }) {
     const { value, checked } = e.target;
 
     if (checked) {
-      setCheckedSessions((pre: []) => [...pre, value]);
+      console.log(checkedSessions);
+
+      setCheckedSessions((pre: string[]) => [...pre, value]);
     } else {
-      setCheckedSessions((pre: []) => {
+      setCheckedSessions((pre: string[]) => {
         return [...pre.filter((slot) => slot !== value)];
       });
     }
