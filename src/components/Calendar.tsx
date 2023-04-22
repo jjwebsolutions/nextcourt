@@ -1,16 +1,10 @@
 "use client";
-import { QueryFunctionContext } from "@tanstack/react-query";
+
 import React, { useEffect, useState } from "react";
 import Calendar from "react-calendar";
-import CalendarProps from "react-calendar";
-import Sessions from "../components/Sessions";
 import "react-calendar/dist/Calendar.css";
-import moment from "moment";
-import use from "react";
 import { format } from "date-fns";
-const API = process.env.NEXTAUTH_URL;
 import { api } from "~/utils/api";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 // Display the calendar
 function ReserveCalendar(): JSX.Element {
