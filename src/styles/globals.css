@@ -18,3 +18,11 @@ html {
 body {
   font-family: "Helvetica";
 }
+
+.react-calendar {
+  width: 350px;
+  max-width: 100%;
+  background: white;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.125em;
+}
