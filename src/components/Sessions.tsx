@@ -3,10 +3,14 @@ import { redirect } from "next/navigation";
 import { getSession, useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 
-interface SessionData {
+// how can i define the type of data ?
+type Data = {
   date: string;
-  slots: { slot: string; available: boolean }[];
-}
+  slots: {
+    slot: string;
+    available: boolean;
+  }[];
+};
 
 function Sessions({ dataSessions }: { dataSessions: Object }) {
   // data: day clicked by user and sessions available for this day
@@ -33,27 +37,30 @@ function Sessions({ dataSessions }: { dataSessions: Object }) {
     console.log(user);
 
     const dataUpdate = data;
+
     if (checkedSessions) {
       // Update the sessions available for the day in data
-
-      checkedSessions.forEach((element: string) => {
-        dataUpdate.slots.forEach(
-          (slot: { slot: string; available: boolean }) => {
-            if (slot.slot === element) {
-              slot.available = false;
+      if (dataUpdate) {
+        checkedSessions.forEach((element: string) => {
+          dataUpdate.slots.forEach(
+            (slot: { slot: string; available: boolean }) => {
+              if (slot.slot === element) {
+                slot.available = false;
+              }
             }
-          }
-        );
-      });
-      // Post order and update day sessions data in db
+          );
+        });
+        setCheckedSessions([]);
+        // Post order and update day sessions data in db
 
-      const orderData = {
-        username: user,
-        dateFormat: data.date,
-        slots: dataUpdate.slots,
-      };
+        const orderData = {
+          username: user,
+          dateFormat: data.date,
+          slots: dataUpdate.slots,
+        };
 
-      mutation.mutate(orderData);
+        mutation.mutate(orderData);
+      }
 
       // Response
     }
@@ -74,6 +81,8 @@ function Sessions({ dataSessions }: { dataSessions: Object }) {
 
   // Store the data from the day picked in Calendar in state data (will update when user click on another day)
   useEffect(() => {
+    console.log(dataSessions);
+
     setData(dataSessions);
   }, [dataSessions]);
   useEffect(() => {

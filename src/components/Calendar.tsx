@@ -5,13 +5,13 @@ import { format } from "date-fns";
 import { api } from "~/utils/api";
 import Sessions from "./Sessions";
 
-interface SessionData {
+type SessionData = {
   date: string;
   slots: {
     slot: string;
     available: boolean;
   }[];
-}
+};
 
 // Display the calendar
 function ReserveCalendar(): JSX.Element {
@@ -24,6 +24,7 @@ function ReserveCalendar(): JSX.Element {
 
   const [slots, setSlots] = useState([]);
 
+  // Request new data everytimes dateFormat change
   api.day.getSlots.useQuery({ dateFormat: dateFormat }, {
     onSuccess: (data) => {
       setSlots(data);
