@@ -59,8 +59,11 @@ function Sessions({ dataSessions }: { dataSessions: Data }) {
             dateFormat: data.date,
             slots: data.slots,
           };
-
-          mutation.mutate(orderData);
+          if (orderData) {
+            mutation.mutate(orderData);
+            alert("Thanks for your order" + user + "!");
+            window.location.replace("/profile");
+          }
         }
 
         // Response
