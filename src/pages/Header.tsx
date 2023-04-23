@@ -46,16 +46,4 @@ export default function Header() {
       </nav>
     </>
   );
-
-  return (
-    <>
-      <nav className=" mb-5 items-center justify-between p-4 sm:flex">
-        <Link href="/" className="text-4xl  font-black text-darkest">
-          Tennis Court
-        </Link>
-        Not signed in <br />
-        <button onClick={() => signIn()}>Sign in</button>
-      </nav>
-    </>
-  );
 }
