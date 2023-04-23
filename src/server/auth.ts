@@ -4,12 +4,11 @@ import {
   type NextAuthOptions,
   type DefaultSession,
 } from "next-auth";
-import { CredentialsProvider } from "next-auth/providers";
+
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { env } from "~/env.mjs";
+
 import { prisma } from "~/server/db";
 import Credentials from "next-auth/providers/credentials";
-import { log } from "console";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -39,7 +38,7 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session({ session, token }) {
+    session({ session }) {
       return session;
     },
   },
@@ -58,7 +57,7 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
 
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         const user = await prisma.user.findFirst({
           where: { email: credentials?.email },
         });

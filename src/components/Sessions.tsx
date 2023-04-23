@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { redirect } from "next/navigation";
-import { getSession, useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
+import { Session } from "next-auth/core/types";
 import { api } from "~/utils/api";
 
 // how can i define the type of data ?
@@ -14,10 +15,12 @@ type Data = {
 
 function Sessions({ dataSessions }: { dataSessions: Data }) {
   // data: day clicked by user and sessions available for this day
-  const [data, setData] = useState([] as any);
+  const [data, setData] = useState<Data>(dataSessions);
   // State that store what sessions are checked
   const [checkedSessions, setCheckedSessions] = useState<string[]>([]);
   const mutation = api.order.postOrder.useMutation();
+
+  // Fetch user infos from Session
   const getUser = async () => {
     const session = await getSession();
     if (!session) {
@@ -26,44 +29,42 @@ function Sessions({ dataSessions }: { dataSessions: Data }) {
     return session.user.name;
   };
 
-  const handleClick = () => {
-    handlePost();
+  // Handle click on button
+  const handleClick = async () => {
+    await handlePost();
   };
 
   // Get data from day clicked and checked sessions and update data state with new infos
   const handlePost = async () => {
     // Get user infos
-    const user: any = await getUser();
+    const user: string | undefined | null = await getUser(); // TYPESCRIPT ERROR HERE
     console.log(user);
     console.log(data);
-
-    const dataUpdate = data;
-
-    if (checkedSessions) {
-      // Update the sessions available for the day in data
-      if (dataUpdate) {
-        checkedSessions.forEach((element: string) => {
-          dataUpdate.slots.forEach(
-            (slot: { slot: string; available: boolean }) => {
+    if (user) {
+      if (checkedSessions) {
+        // Update the sessions available for the day in data
+        if (data) {
+          checkedSessions.forEach((element: string) => {
+            data.slots.forEach((slot: { slot: string; available: boolean }) => {
               if (slot.slot === element) {
                 slot.available = false;
               }
-            }
-          );
-        });
-        setCheckedSessions([]);
-        // Post order and update day sessions data in db
+            });
+          });
+          setCheckedSessions([]);
+          // Post order and update day sessions data in db
 
-        const orderData = {
-          username: user,
-          dateFormat: data.date,
-          slots: dataUpdate.slots,
-        };
+          const orderData = {
+            username: user,
+            dateFormat: data.date,
+            slots: data.slots,
+          };
 
-        mutation.mutate(orderData);
+          mutation.mutate(orderData);
+        }
+
+        // Response
       }
-
-      // Response
     }
   };
 
@@ -99,7 +100,7 @@ function Sessions({ dataSessions }: { dataSessions: Data }) {
         </div>
         <div>
           <ul className=" columns-2  text-xl font-medium text-darkest">
-            {data.length < 2 ? (
+            {data.slots.length < 2 ? (
               <>
                 <li className=" flex ">a available</li>
                 <li className=" flex ">b available</li>
@@ -139,7 +140,7 @@ function Sessions({ dataSessions }: { dataSessions: Data }) {
           </ul>
         </div>
         <div className="mt-10 text-center">
-          <button onClick={handleClick} className="btn text">
+          <button onClick={() => void handleClick()} className="btn text">
             Reserve
           </button>
         </div>

@@ -8,6 +8,9 @@ export default function Header() {
   async function handleSignOut() {
     await signOut();
   }
+  async function handleSignIn() {
+    await signIn();
+  }
   if (session) {
     return (
       <>
@@ -27,7 +30,7 @@ export default function Header() {
               </Link>
             </li>
             <li className="mr-4">
-              <button className="btn" onClick={handleSignOut}>
+              <button className="btn" onClick={() => void handleSignOut()}>
                 Sign out
               </button>
             </li>
@@ -43,7 +46,7 @@ export default function Header() {
           Tennis Court
         </Link>
         Not signed in <br />
-        <button className="btn" onClick={() => signIn()}>
+        <button className="btn" onClick={() => void handleSignIn()}>
           Sign in
         </button>
       </nav>
