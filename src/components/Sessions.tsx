@@ -12,7 +12,7 @@ type Data = {
   }[];
 };
 
-function Sessions({ dataSessions }: { dataSessions: Object }) {
+function Sessions({ dataSessions }: { dataSessions: Data }) {
   // data: day clicked by user and sessions available for this day
   const [data, setData] = useState([] as any);
   // State that store what sessions are checked
@@ -35,6 +35,7 @@ function Sessions({ dataSessions }: { dataSessions: Object }) {
     // Get user infos
     const user: any = await getUser();
     console.log(user);
+    console.log(data);
 
     const dataUpdate = data;
 
