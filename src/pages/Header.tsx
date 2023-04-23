@@ -5,6 +5,9 @@ import { useSession, signIn, signOut } from "next-auth/react";
 export default function Header() {
   const { data: session } = useSession();
 
+  async function handleSignOut() {
+    await signOut();
+  }
   if (session) {
     return (
       <>
@@ -24,7 +27,7 @@ export default function Header() {
               </Link>
             </li>
             <li className="mr-4">
-              <button className="btn" onClick={() => signOut()}>
+              <button className="btn" onClick={handleSignOut}>
                 Sign out
               </button>
             </li>
