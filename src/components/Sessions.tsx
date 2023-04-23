@@ -1,30 +1,36 @@
-"use client";
-
 import { useState, useEffect } from "react";
 import { redirect } from "next/navigation";
 import { getSession, useSession } from "next-auth/react";
-import { MouseEventHandler } from "react";
-// env variables
-const API = process.env.REACT_APP_API;
+import { api } from "~/utils/api";
+
+interface SessionData {
+  date: string;
+  slots: { slot: string; available: boolean }[];
+}
 
 function Sessions({ dataSessions }: { dataSessions: Object }) {
   // data: day clicked by user and sessions available for this day
   const [data, setData] = useState([] as any);
   // State that store what sessions are checked
   const [checkedSessions, setCheckedSessions] = useState<string[]>([]);
-
+  const mutation = api.order.postOrder.useMutation();
   const getUser = async () => {
     const session = await getSession();
     if (!session) {
       redirect("/");
     }
-    return session.user;
+    return session.user.name;
+  };
+
+  const handleClick = () => {
+    handlePost();
   };
 
   // Get data from day clicked and checked sessions and update data state with new infos
-  const handleClick: MouseEventHandler<HTMLButtonElement> = async () => {
+  const handlePost = async () => {
     // Get user infos
-    const user = await getUser();
+    const user: any = await getUser();
+    console.log(user);
 
     const dataUpdate = data;
     if (checkedSessions) {
@@ -40,27 +46,16 @@ function Sessions({ dataSessions }: { dataSessions: Object }) {
         );
       });
       // Post order and update day sessions data in db
-      const response = await fetch(API + "/order", {
-        method: "POST",
-        headers: {
-          authorization: "Bearer" + " " + "token",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user: user,
-          session: checkedSessions,
-          dateFormat: data.date,
-          slots: dataUpdate.slots,
-        }),
-      });
+
+      const orderData = {
+        username: user,
+        dateFormat: data.date,
+        slots: dataUpdate.slots,
+      };
+
+      mutation.mutate(orderData);
+
       // Response
-      const res = await response.json();
-      if (res) {
-        alert("Thanks for your reservation" + " " + user.name);
-        redirect("/profile");
-      } else {
-        alert("noo");
-      }
     }
   };
 
@@ -69,8 +64,6 @@ function Sessions({ dataSessions }: { dataSessions: Object }) {
     const { value, checked } = e.target;
 
     if (checked) {
-      console.log(checkedSessions);
-
       setCheckedSessions((pre: string[]) => [...pre, value]);
     } else {
       setCheckedSessions((pre: string[]) => {
@@ -83,6 +76,9 @@ function Sessions({ dataSessions }: { dataSessions: Object }) {
   useEffect(() => {
     setData(dataSessions);
   }, [dataSessions]);
+  useEffect(() => {
+    console.log(checkedSessions);
+  }, [checkedSessions]);
 
   // Display sessions available for the day clicked by user on Calendar
   return (
