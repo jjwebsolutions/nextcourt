@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { redirect } from "next/navigation";
 import { getSession } from "next-auth/react";
-import { Session } from "next-auth/core/types";
 import { api } from "~/utils/api";
 
-// how can i define the type of data ?
+// Type interfaces
 type Data = {
   date: string;
   slots: {
@@ -12,12 +11,18 @@ type Data = {
     available: boolean;
   }[];
 };
+type OrderData = {
+  date: string;
+  slots: string[];
+  username: string;
+};
 
 function Sessions({ dataSessions }: { dataSessions: Data }) {
   // data: day clicked by user and sessions available for this day
   const [data, setData] = useState<Data>(dataSessions);
   // State that store what sessions are checked
   const [checkedSessions, setCheckedSessions] = useState<string[]>([]);
+  // Mutation to post order
   const mutation = api.order.postOrder.useMutation();
 
   // Fetch user infos from Session
@@ -38,8 +43,7 @@ function Sessions({ dataSessions }: { dataSessions: Data }) {
   const handlePost = async () => {
     // Get user infos
     const user: string | undefined | null = await getUser(); // TYPESCRIPT ERROR HERE
-    console.log(user);
-    console.log(data);
+
     if (user) {
       if (checkedSessions) {
         // Update the sessions available for the day in data
@@ -51,13 +55,14 @@ function Sessions({ dataSessions }: { dataSessions: Data }) {
               }
             });
           });
-          setCheckedSessions([]);
+
           // Post order and update day sessions data in db
 
           const orderData = {
             username: user,
             dateFormat: data.date,
             slots: data.slots,
+            slotsOrder: checkedSessions,
           };
           if (orderData) {
             mutation.mutate(orderData);
@@ -86,13 +91,8 @@ function Sessions({ dataSessions }: { dataSessions: Data }) {
 
   // Store the data from the day picked in Calendar in state data (will update when user click on another day)
   useEffect(() => {
-    console.log(dataSessions);
-
     setData(dataSessions);
   }, [dataSessions]);
-  useEffect(() => {
-    console.log(checkedSessions);
-  }, [checkedSessions]);
 
   // Display sessions available for the day clicked by user on Calendar
   return (

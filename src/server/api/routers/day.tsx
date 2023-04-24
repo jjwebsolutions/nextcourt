@@ -19,6 +19,38 @@ export const dayRouter = createTRPCRouter({
         return ["empty"];
       }
     }),
+  updateDay: protectedProcedure
+    .input(
+      z.object({
+        dateFormat: z.string(),
+        slots: z.array(z.object({ slot: z.string(), available: z.boolean() })),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const day = await ctx.prisma.day.findUnique({
+        where: { dateFormat: input.dateFormat },
+      });
+      if (day) {
+        await ctx.prisma.day.update({
+          where: {
+            id: day.id,
+          },
+          data: {
+            slots: input.slots,
+          },
+        });
+        return ["slotschanged"];
+      } else {
+        // Create a new day in the database
+        await ctx.prisma.day.create({
+          data: {
+            dateFormat: input.dateFormat,
+            slots: input.slots,
+          },
+        });
+        return ["newdaycreatedindb"];
+      }
+    }),
 });
 
 // Create a procedure that returns all slots for a given day

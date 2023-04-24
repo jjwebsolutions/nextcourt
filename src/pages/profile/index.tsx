@@ -1,3 +1,5 @@
+import UserSessions from "~/components/UserSessions";
+
 // Display Profile page
 export default function Profil() {
   return (
@@ -9,7 +11,7 @@ export default function Profil() {
         <p>List of your sessions programmed</p>
       </div>
       <div className="  flex justify-center">
-        <h1>UserSessions</h1>
+        <UserSessions />
       </div>
     </>
   );

@@ -13,6 +13,7 @@ export const orderRouter = createTRPCRouter({
       z.object({
         dateFormat: z.string(),
         slots: z.array(z.object({ slot: z.string(), available: z.boolean() })),
+        slotsOrder: z.array(z.string()),
         username: z.string(),
       })
     )
@@ -33,7 +34,7 @@ export const orderRouter = createTRPCRouter({
         await ctx.prisma.order.create({
           data: {
             date: input.dateFormat,
-            slots: input.slots,
+            slots: input.slotsOrder,
             username: input.username,
           },
         });
@@ -51,12 +52,41 @@ export const orderRouter = createTRPCRouter({
         await ctx.prisma.order.create({
           data: {
             date: input.dateFormat,
-            slots: input.slots,
+            slots: input.slotsOrder,
             username: input.username,
           },
         });
 
         return ["newdaycreatedindb_ordercreated"];
       }
+    }),
+
+  deleteOrder: protectedProcedure
+    .input(
+      z.object({
+        orderId: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      await ctx.prisma.order.delete({
+        where: {
+          id: input.orderId,
+        },
+      });
+      return ["orderdeleted"];
+    }),
+
+  getOrdersByUsername: protectedProcedure
+    .input(z.object({ username: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const orders = await ctx.prisma.order.findMany({
+        where: {
+          username: input.username,
+        },
+      });
+      if (orders) {
+        return orders;
+      }
+      return ["noordersfound"];
     }),
 });
