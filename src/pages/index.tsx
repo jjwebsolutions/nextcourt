@@ -1,16 +1,10 @@
 import { type NextPage } from "next";
-import Head from "next/head";
 import Image from "next/image";
 import tennis_court_W from "../assets/tennis_court_W.webp";
 
 const Home: NextPage = () => {
   return (
     <>
-      <Head>
-        <title>Tennis Court</title>
-        <meta name="description" content="Reserve your tennis court" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <main>
         <div className=" space-x-10 xl:ml-5 xl:flex">
           <div className="p-10 xl:p-1 ">

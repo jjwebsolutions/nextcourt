@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
+import Head from "next/head";
 
 export default function Header() {
   const { data: session } = useSession();
@@ -14,6 +15,11 @@ export default function Header() {
   if (session) {
     return (
       <>
+        <Head>
+          <title>Tennis Court</title>
+          <meta name="description" content="Reserve your tennis court" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
         <nav className=" mb-5 items-center justify-between p-4 sm:flex">
           <Link href="/" className="text-4xl  font-black text-darkest">
             Tennis Court
