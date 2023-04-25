@@ -16,11 +16,10 @@ const UserSessions = () => {
     date: string;
     slots: string[];
   };
-
-  // Data with sessions that user programmed
-  const [userSession, setUserSession] = useState<Session[]>([]);
   // data with user's session infos
   const { data: session, status } = useSession();
+  // Data with sessions that user programmed
+  const [userSession, setUserSession] = useState<Session[]>([]);
   // State that store what session is clicked to delete
   const [sessionToDelete, setSessionToDelete] = useState<Session>({
     id: "",
@@ -85,6 +84,7 @@ const UserSessions = () => {
           setUserSession(newListOrder);
         }
       }
+      setTrigger(false);
     },
     queryKey: [trigger],
   } as {
