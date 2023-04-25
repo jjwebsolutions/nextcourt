@@ -8,7 +8,7 @@ const Home: NextPage = () => {
       <main>
         <div className=" space-x-10 xl:ml-5 xl:flex">
           <div className="p-10 xl:p-1 ">
-            <p className="mt-5 text-center text-5xl font-bold text-darkest sm:mt-16 sm:text-6xl">
+            <p className="mt-2 text-center text-5xl font-bold text-darkest sm:mt-16 sm:text-6xl">
               Welcome to our tennis court reservation website!
             </p>
             <p className="mt-16 text-center text-3xl font-medium  sm:text-5xl">
