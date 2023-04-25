@@ -14,6 +14,17 @@ export default function Header() {
   if (session) {
     return (
       <>
+        <head>
+          <link
+            rel="icon"
+            href="https://cdn-icons-png.flaticon.com/512/5147/5147762.png"
+          />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta name="theme-color" content="#000000" />
+          <meta name="description" content="Reserve your tennis court" />
+
+          <title>Tennis Court</title>
+        </head>
         <Popover className="relative">
           <header>
             <nav className=" mb-5 flex items-center justify-between p-4">
