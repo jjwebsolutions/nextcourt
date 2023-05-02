@@ -5,6 +5,7 @@ import {
   createTRPCRouter,
   publicProcedure,
   protectedProcedure,
+  adminProcedure,
 } from "~/server/api/trpc";
 
 export const orderRouter = createTRPCRouter({
@@ -93,7 +94,7 @@ export const orderRouter = createTRPCRouter({
     }),
 
   // Get all orders
-  getAllOrders: protectedProcedure.query(async ({ ctx }) => {
+  getAllOrders: adminProcedure.query(async ({ ctx }) => {
     const orders = await ctx.prisma.order.findMany();
     if (orders) {
       return orders;

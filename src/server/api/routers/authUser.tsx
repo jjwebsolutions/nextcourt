@@ -4,10 +4,11 @@ import {
   createTRPCRouter,
   publicProcedure,
   protectedProcedure,
+  adminProcedure,
 } from "~/server/api/trpc";
 
 export const authUserRouter = createTRPCRouter({
-  getAll: publicProcedure.query(({ ctx }) => {
+  getAll: adminProcedure.query(({ ctx }) => {
     return ctx.prisma.user.findMany();
   }),
   getUser: protectedProcedure
@@ -23,9 +24,28 @@ export const authUserRouter = createTRPCRouter({
       }
       return ["nouserfound"];
     }),
-  create: publicProcedure
-    .input(z.object({ title: z.string() }))
-    .mutation(({ ctx, input }) => {
-      return ctx.prisma.user.findMany();
+  createUser: publicProcedure
+    .input(
+      z.object({
+        username: z.string(),
+        name: z.string(),
+        email: z.string(),
+        password: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const res = await ctx.prisma.user.create({
+        data: {
+          username: input.username,
+          name: input.name,
+          email: input.email,
+          password: input.password,
+        },
+      });
+      if (res) {
+        return ["usercreated"];
+      } else {
+        return ["usernotcreated"];
+      }
     }),
 });

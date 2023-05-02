@@ -66,7 +66,7 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
-    session({ session, token, user }) {
+    session({ session, token }) {
       session.role = token.role;
       return session;
     },
@@ -113,6 +113,11 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  pages: {
+    signIn: "../../auth/signin",
+    error: "../../auth/error",
+    verifyRequest: "verify-request",
+  },
 };
 
 /**

@@ -3,11 +3,12 @@ import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { Popover, Transition } from "@headlessui/react";
 import Head from "next/head";
+
 export default function Header() {
   const { data: session } = useSession();
 
   async function handleSignOut() {
-    await signOut();
+    await signOut({ callbackUrl: "/" });
   }
   async function handleSignIn() {
     await signIn();
@@ -86,6 +87,14 @@ export default function Header() {
               >
                 <Popover.Panel>
                   <ul className="flex flex-col items-center sm:hidden ">
+                    <li className="mr-4 pt-2 ">
+                      <Link
+                        href="/admin"
+                        className="p-3 text-xl  font-bold text-darkest "
+                      >
+                        Admin
+                      </Link>
+                    </li>
                     <li className="mr-4 p-2">
                       <Link
                         href="/reserve"
@@ -216,7 +225,8 @@ export default function Header() {
         <Link href="/" className="text-4xl  font-black text-darkest">
           Tennis Court
         </Link>
-        Not signed in <br />
+        <p className="hidden sm:block"> Not signed in</p>
+
         <button className="btn" onClick={() => void handleSignIn()}>
           Sign in
         </button>
