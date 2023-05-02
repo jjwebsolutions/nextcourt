@@ -1,16 +1,15 @@
+import { api } from "src/utils/api";
 import { useState, useEffect } from "react";
-import { api } from "~/utils/api";
-import { useSession } from "next-auth/react";
-
-const UserSessions = () => {
+// Display Profile page
+export default function Admin() {
   // Type interfaces
   type Session = {
     id: string;
     date: string;
     slots: string[];
+    username: string;
   };
-  // data with user's session infos
-  const { data: session, status } = useSession();
+
   // Data with sessions that user programmed
   const [userSession, setUserSession] = useState<Session[]>([]);
   // State that store what session is clicked to delete
@@ -18,6 +17,7 @@ const UserSessions = () => {
     id: "",
     date: "",
     slots: [],
+    username: "",
   });
   // Trigger to update day sessions
   const [trigger, setTrigger] = useState<boolean>(false);
@@ -29,18 +29,11 @@ const UserSessions = () => {
   // Mutation to update day
   const mutationUpdateDay = api.day.updateDay.useMutation();
 
-  useEffect(() => {
-    if (session && session.user.name) {
-      setUsername(session.user.name);
-    }
-  });
-
   // Fetch orders from user
-  api.order.getOrdersByUsername.useQuery({ username: username }, {
+  api.order.getAllOrders.useQuery(undefined, {
     onSuccess: (data) => {
       setUserSession(data);
     },
-    queryKey: [userSession],
   } as {
     onSuccess: (data: []) => void;
   });
@@ -94,22 +87,23 @@ const UserSessions = () => {
   return (
     <>
       <div>
-        {userSession.map((session: Session, i: number) => {
-          return (
-            <li key={i}>
-              {session.date} {session.slots}
-              <button
-                onClick={() => void handleDeleteSession(session, i)}
-                className="btn"
-              >
-                Cancel
-              </button>
-            </li>
-          );
-        })}
+        <p>Admin</p>
+        <div>
+          {userSession.map((session: Session, i: number) => {
+            return (
+              <li key={i}>
+                {session.date} {session.slots} {session.username}
+                <button
+                  onClick={() => void handleDeleteSession(session, i)}
+                  className="btn"
+                >
+                  Cancel
+                </button>
+              </li>
+            );
+          })}
+        </div>
       </div>
     </>
   );
-};
-
-export default UserSessions;
+}

@@ -16,10 +16,31 @@ import Credentials from "next-auth/providers/credentials";
  *
  * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
  */
+
+declare module "next-auth" {
+  interface Session {
+    id: string;
+    role: string;
+  }
+
+  interface User {
+    id: string;
+    role: string;
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    id: string;
+    role: string;
+  }
+}
+
 declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
+      role: string;
       // ...other properties
       // role: UserRole;
     } & DefaultSession["user"];
@@ -38,7 +59,15 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session({ session }) {
+    jwt({ token, account, user }) {
+      if (account) {
+        // modify token
+        token.role = user.role;
+      }
+      return token;
+    },
+    session({ session, token, user }) {
+      session.role = token.role;
       return session;
     },
   },

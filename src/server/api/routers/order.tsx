@@ -8,6 +8,7 @@ import {
 } from "~/server/api/trpc";
 
 export const orderRouter = createTRPCRouter({
+  // Post order
   postOrder: publicProcedure
     .input(
       z.object({
@@ -60,7 +61,7 @@ export const orderRouter = createTRPCRouter({
         return ["newdaycreatedindb_ordercreated"];
       }
     }),
-
+  // Delete order
   deleteOrder: protectedProcedure
     .input(
       z.object({
@@ -76,6 +77,7 @@ export const orderRouter = createTRPCRouter({
       return ["orderdeleted"];
     }),
 
+  // Get order by username
   getOrdersByUsername: protectedProcedure
     .input(z.object({ username: z.string() }))
     .query(async ({ ctx, input }) => {
@@ -89,4 +91,13 @@ export const orderRouter = createTRPCRouter({
       }
       return ["noordersfound"];
     }),
+
+  // Get all orders
+  getAllOrders: protectedProcedure.query(async ({ ctx }) => {
+    const orders = await ctx.prisma.order.findMany();
+    if (orders) {
+      return orders;
+    }
+    return ["noordersfound"];
+  }),
 });

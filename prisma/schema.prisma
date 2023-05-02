@@ -51,9 +51,11 @@ model User {
     password      String?
     email         String?   @unique
     emailVerified DateTime?
+    role          String @default("USER")
     image         String?
     accounts      Account[]
     sessions      Session[]
+   
 }
 
 model VerificationToken {
