@@ -34,12 +34,15 @@ export const authUserRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
+      const bcrypt = require("bcrypt");
+      const saltRounds = 10;
+      const hash = await bcrypt.hash(input.password, saltRounds);
       const res = await ctx.prisma.user.create({
         data: {
           username: input.username,
           name: input.name,
           email: input.email,
-          password: input.password,
+          password: hash,
         },
       });
       if (res) {

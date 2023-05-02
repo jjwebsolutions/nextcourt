@@ -87,6 +87,7 @@ export const authOptions: NextAuthOptions = {
       },
 
       async authorize(credentials) {
+        const bcrypt = require("bcrypt");
         const user = await prisma.user.findFirst({
           where: { email: credentials?.email },
         });
@@ -94,7 +95,11 @@ export const authOptions: NextAuthOptions = {
         if (!user) {
           return null;
         }
-        if (user.password === credentials?.password) {
+        const match = await bcrypt.compare(
+          credentials?.password,
+          user.password
+        );
+        if (match === true) {
           return user;
         } else {
           return null;
