@@ -39,66 +39,56 @@ const FormRegister = () => {
           onSubmit={(e) => void handleSubmit(e)}
           className="mb-4 rounded bg-white px-8 pb-8 pt-6 shadow-md"
         >
-          <div className="mb-4">
-            <label
-              className="text-gray-700 mb-2 block text-sm font-bold"
-              htmlFor="email"
-            >
-              Email
-            </label>
-            <input
-              className="focus:shadow-outline text-gray-700 w-full appearance-none rounded border px-3 py-2 leading-tight shadow focus:outline-none"
-              id="email"
-              type="email"
-              placeholder="example@example.com"
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              className="text-gray-700 mb-2 block text-sm font-bold"
-              htmlFor="name"
-            >
-              Name
-            </label>
-            <input
-              className="focus:shadow-outline text-gray-700 w-full appearance-none rounded border px-3 py-2 leading-tight shadow focus:outline-none"
-              id="name"
-              type="text"
-              placeholder="Johnny"
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              className="text-gray-700 mb-2 block text-sm font-bold"
-              htmlFor="username"
-            >
-              Username
-            </label>
-            <input
-              className="focus:shadow-outline text-gray-700 w-full appearance-none rounded border px-3 py-2 leading-tight shadow focus:outline-none"
-              id="username"
-              type="text"
-              placeholder="Username"
-            />
-          </div>
-          <div className="mb-6">
-            <label
-              className="text-gray-700 mb-2 block text-sm font-bold"
-              htmlFor="password"
-            >
-              Password
-            </label>
-            <input
-              className="focus:shadow-outline border-red-500 text-gray-700 mb-3 w-full appearance-none rounded border px-3 py-2 leading-tight shadow focus:outline-none"
-              id="password"
-              type="password"
-              placeholder="******************"
-            />
-            <p className="text-red-500 text-xs italic">
-              Please choose a password.
-            </p>
-          </div>
-          <div className="flex items-center justify-between">
+          <label
+            className="text-gray-700 mb-2 block text-sm font-bold"
+            htmlFor="email"
+          >
+            Email
+          </label>
+          <input
+            className="focus:shadow-outline text-gray-700 w-full appearance-none rounded border px-3 py-2 leading-tight shadow focus:outline-none"
+            id="email"
+            type="email"
+            placeholder="example@example.com"
+          />
+          <label
+            className="text-gray-700 mb-2 mt-4  block text-sm font-bold"
+            htmlFor="name"
+          >
+            Name
+          </label>
+          <input
+            className="focus:shadow-outline text-gray-700 w-full appearance-none rounded border px-3 py-2 leading-tight shadow focus:outline-none"
+            id="name"
+            type="text"
+            placeholder="Johnny"
+          />
+          <label
+            className="text-gray-700 mb-2 mt-4 block text-sm font-bold"
+            htmlFor="username"
+          >
+            Username
+          </label>
+          <input
+            className="focus:shadow-outline text-gray-700 w-full appearance-none rounded border px-3 py-2 leading-tight shadow focus:outline-none"
+            id="username"
+            type="text"
+            placeholder="Username"
+          />
+          <label
+            className="text-gray-700 mb-2 mt-4 block text-sm  font-bold"
+            htmlFor="password"
+          >
+            Password
+          </label>
+          <input
+            className="focus:shadow-outline border-red-500 text-gray-700 mb-3 w-full appearance-none rounded border px-3 py-2 leading-tight shadow focus:outline-none"
+            id="password"
+            type="password"
+            placeholder="******************"
+          />
+
+          <div className="mt-5 flex items-center justify-between">
             <button className="btn" type="submit">
               Sign Up
             </button>
