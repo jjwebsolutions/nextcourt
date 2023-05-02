@@ -9,7 +9,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 import { prisma } from "~/server/db";
 import Credentials from "next-auth/providers/credentials";
-
+import bcrypt from "bcrypt";
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
  * object and keep type safety.
@@ -87,23 +87,23 @@ export const authOptions: NextAuthOptions = {
       },
 
       async authorize(credentials) {
-        const bcrypt = require("bcrypt");
         const user = await prisma.user.findFirst({
           where: { email: credentials?.email },
         });
-
-        if (!user) {
-          return null;
+        if (user) {
+          if (credentials?.password && user.password) {
+            const match: any = await bcrypt.compare(
+              credentials?.password,
+              user.password
+            );
+            if (match === true) {
+              return user;
+            } else {
+              return null;
+            }
+          }
         }
-        const match = await bcrypt.compare(
-          credentials?.password,
-          user.password
-        );
-        if (match === true) {
-          return user;
-        } else {
-          return null;
-        }
+        return null;
 
         // You need to provide your own logic here that takes the credentials
         // submitted and returns either a object representing a user or value
