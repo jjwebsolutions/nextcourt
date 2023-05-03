@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
-import { redirect } from "next/navigation";
+
 // Display the form register
 const FormRegister = () => {
   const router = useRouter();
@@ -16,6 +16,8 @@ const FormRegister = () => {
       name: { value: string };
       username: { value: string };
     };
+
+    // Data of user for registration
     const dataUser = {
       email: target.email.value,
       name: target.name.value,
@@ -24,7 +26,9 @@ const FormRegister = () => {
     };
 
     try {
+      //Post data of user for registration
       await mutationCreateUser.mutateAsync(dataUser);
+      alert("Welcome to Tennis Court !");
       window.location.replace("/auth/signin");
     } catch (error) {
       console.log(error);

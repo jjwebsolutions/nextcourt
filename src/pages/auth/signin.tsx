@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-
 import type {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,
@@ -18,8 +17,10 @@ export default function SignIn({
       email: { value: string };
       password: { value: string };
     };
-    const email = target.email.value; // typechecks!
-    const password = target.password.value; // typechecks!
+    const email = target.email.value;
+    const password = target.password.value;
+
+    // next-auth signIn function
     signIn("credentials", {
       callbackUrl: "/",
       redirect: true,
@@ -37,38 +38,33 @@ export default function SignIn({
           onSubmit={(e) => void handleSubmit(e)}
           className="mb-4 rounded bg-white px-8 pb-8 pt-6 shadow-md"
         >
-          <div className="mb-4">
-            <label
-              className="mb-2 block text-sm font-bold text-darkest"
-              htmlFor="email"
-            >
-              Email
-            </label>
-            <input
-              className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-darkest shadow focus:outline-none"
-              id="email"
-              type="text"
-              placeholder="Password"
-            />
-          </div>
-          <div className="mb-6">
-            <label
-              className="mb-2 block text-sm font-bold text-darkest"
-              htmlFor="password"
-            >
-              Password
-            </label>
-            <input
-              className="focus:shadow-outline border-red-500 mb-3 w-full appearance-none rounded border px-3 py-2 leading-tight text-darkest shadow focus:outline-none"
-              id="password"
-              type="password"
-              placeholder="******************"
-            />
-            <p className="text-red-500 text-xs italic">
-              Please choose a password.
-            </p>
-          </div>
-          <div className="flex items-center justify-between">
+          <label
+            className="mb-2 block text-sm font-bold text-darkest"
+            htmlFor="email"
+          >
+            Email
+          </label>
+          <input
+            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-darkest shadow focus:outline-none"
+            id="email"
+            type="text"
+            placeholder="Password"
+          />
+
+          <label
+            className="mb-2 mt-5 block text-sm font-bold text-darkest"
+            htmlFor="password"
+          >
+            Password
+          </label>
+          <input
+            className="focus:shadow-outline border-red-500 mb-3 w-full appearance-none rounded border px-3 py-2 leading-tight text-darkest shadow focus:outline-none"
+            id="password"
+            type="password"
+            placeholder="******************"
+          />
+
+          <div className="mt-3 flex items-center justify-between">
             <button className="btn">Sign In</button>
             <Link
               className="inline-block align-baseline text-sm font-bold text-darkest hover:text-light"
