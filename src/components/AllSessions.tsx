@@ -87,11 +87,12 @@ export default function AllSessions() {
       <div>
         {userSession.map((session: Session, i: number) => {
           return (
-            <li key={i}>
-              {session.date} {session.slots} {session.username}
+            <li className="list-none" key={i}>
+              <span>The</span> {session.date} <span>at</span> {session.slots}
+              <span>by</span> {session.username}
               <button
                 onClick={() => void handleDeleteSession(session, i)}
-                className="btn"
+                className="btn ml-5"
               >
                 Cancel
               </button>

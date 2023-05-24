@@ -101,29 +101,17 @@ function Sessions({ dataSessions }: { dataSessions: Data }) {
         <div className="mb-10 text-2xl font-bold text-darkest">
           Sessions available for this day
         </div>
-        <div>
+        <div className="flex justify-center">
           <ul className=" columns-2  text-xl font-medium text-darkest">
-            {data.slots.length < 2 ? (
-              <>
-                <li className=" flex ">a available</li>
-                <li className=" flex ">b available</li>
-                <li className=" flex">c available</li>
-                <li className=" flex ">d available</li>
-                <li className=" flex ">e available</li>
-                <li className=" flex ">ff available</li>
-                <li className=" flex">g available</li>
-                <li className=" flex ">h available</li>
-              </>
-            ) : (
+            {
               // Check if each session is available or not
               data.slots.map(
                 (session: { slot: string; available: boolean }, i: number) => {
                   return (
-                    <li className=" m-1 flex p-1 shadow" key={i}>
-                      <div className="mr-2">{session.slot}</div>
+                    <li className="m-1  flex max-w-max p-1 shadow" key={i}>
                       {session.available === true ? (
                         <>
-                          <p className="mr-5">Available</p>
+                          <div className="mr-2">{session.slot}</div>
                           <input
                             value={session.slot}
                             onChange={handleChange}
@@ -132,14 +120,14 @@ function Sessions({ dataSessions }: { dataSessions: Data }) {
                         </>
                       ) : (
                         <>
-                          <p>Taken</p>
+                          <div className="mr-2 bg-darkest">{session.slot}</div>
                         </>
                       )}
                     </li>
                   );
                 }
               )
-            )}
+            }
           </ul>
         </div>
         <div className="mt-10 text-center">

@@ -96,11 +96,11 @@ const UserSessions = () => {
       <div>
         {userSession.map((session: Session, i: number) => {
           return (
-            <li key={i}>
-              {session.date} {session.slots}
+            <li className="list-none" key={i}>
+              <span>The</span> {session.date} <span>at</span> {session.slots}
               <button
                 onClick={() => void handleDeleteSession(session, i)}
-                className="btn"
+                className="btn ml-5"
               >
                 Cancel
               </button>

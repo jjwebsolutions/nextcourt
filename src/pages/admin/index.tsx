@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 export default function Admin() {
   const { data: session, status } = useSession();
   if (status === "unauthenticated") {
-    return <p>Access Denied</p>;
+    return <p className=" flex justify-center text-4xl">Access Denied</p>;
   }
   // Display user sessions
   return (
@@ -18,7 +18,7 @@ export default function Admin() {
         <div className="  flex justify-center">
           <p>List of sessions programmed</p>
         </div>
-        <div className="  flex justify-center">
+        <div className="mt-10  flex justify-center">
           <AllSessions />
         </div>
       </>

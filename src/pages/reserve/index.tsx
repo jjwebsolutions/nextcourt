@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 export default function Reserve() {
   const { data: session, status } = useSession();
   if (status === "unauthenticated") {
-    return <p>Access Denied</p>;
+    return <p className=" flex justify-center text-4xl">Access Denied</p>;
   }
   return (
     <>

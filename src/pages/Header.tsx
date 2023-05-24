@@ -221,7 +221,6 @@ export default function Header() {
         <Link href="/" className="text-4xl  font-black text-darkest">
           Tennis Court
         </Link>
-        <p className="hidden sm:block"> Not signed in</p>
 
         <button className="btn" onClick={() => void handleSignIn()}>
           Sign in

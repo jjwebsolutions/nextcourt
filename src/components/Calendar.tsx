@@ -45,14 +45,14 @@ function ReserveCalendar(): JSX.Element {
       setDataSession({
         date: dateFormat,
         slots: [
-          { slot: "a", available: true },
-          { slot: "b", available: true },
-          { slot: "c", available: true },
-          { slot: "d", available: true },
-          { slot: "e", available: true },
-          { slot: "f", available: true },
-          { slot: "g", available: true },
-          { slot: "h", available: true },
+          { slot: "08h00", available: true },
+          { slot: "09h30", available: true },
+          { slot: "10h00", available: true },
+          { slot: "11h30", available: true },
+          { slot: "13h00", available: true },
+          { slot: "14h30", available: true },
+          { slot: "16h00", available: true },
+          { slot: "17h30", available: true },
         ],
       });
     }

@@ -12,6 +12,7 @@ export default {
       lightest: "#EEEEEE", // Light gray
       light: "#00ADB5", // Teal
       white: "#FFFFFF",
+      red: "#B91C1C",
     },
     extend: {},
   },
