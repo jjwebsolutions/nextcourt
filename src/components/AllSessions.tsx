@@ -97,7 +97,7 @@ export default function AllSessions() {
         <div className="flex flex-col bg-white p-4 shadow">
           <div className="flex w-9/12 space-x-16 p-1 ">
             <p>Date</p>
-            <p>Hour</p>
+            <p>Time</p>
             <p>Name</p>
           </div>
           {userSession.map((session: Session, i: number) => {

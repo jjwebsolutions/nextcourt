@@ -103,7 +103,7 @@ const UserSessions = () => {
         <div className="flex flex-col bg-white p-4 shadow">
           <div className="flex w-7/12 justify-between p-1 ">
             <p>Date</p>
-            <p>Hour</p>
+            <p>Time</p>
           </div>
           {userSession.map((session: Session, i: number) => {
             return (

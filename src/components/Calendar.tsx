@@ -66,7 +66,7 @@ function ReserveCalendar(): JSX.Element {
   return (
     <>
       <div className="bg-white p-2 shadow-md md:p-5 lg:p-10 ">
-        <p className="mb-10 rounded bg-white pt-5 text-center text-2xl font-bold text-darkest">
+        <p className="mb-10 rounded bg-white pt-5 text-center text-3xl font-bold text-darkest">
           Pick a day you want to play
         </p>
         <div className="lg:flex lg:justify-center lg:space-x-24">
