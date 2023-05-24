@@ -89,27 +89,34 @@ const UserSessions = () => {
       setTrigger(true);
     }
   };
-
+  if (userSession.length == 0) {
+    return (
+      <>
+        <p>No sessions</p>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <div>
+          {userSession.map((session: Session, i: number) => {
+            return (
+              <li className="mt-2 list-none" key={i}>
+                <span>The</span> {session.date} <span>at</span> {session.slots}
+                <button
+                  onClick={() => void handleDeleteSession(session, i)}
+                  className="btn"
+                >
+                  Cancel
+                </button>
+              </li>
+            );
+          })}
+        </div>
+      </>
+    );
+  }
   // Display user sessions
-  return (
-    <>
-      <div>
-        {userSession.map((session: Session, i: number) => {
-          return (
-            <li className="list-none" key={i}>
-              <span>The</span> {session.date} <span>at</span> {session.slots}
-              <button
-                onClick={() => void handleDeleteSession(session, i)}
-                className="btn ml-5"
-              >
-                Cancel
-              </button>
-            </li>
-          );
-        })}
-      </div>
-    </>
-  );
 };
 
 export default UserSessions;

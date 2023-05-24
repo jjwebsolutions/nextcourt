@@ -36,7 +36,13 @@ function Sessions({ dataSessions }: { dataSessions: Data }) {
 
   // Handle click on button
   const handleClick = async () => {
-    await handlePost();
+    console.log(checkedSessions);
+
+    if (checkedSessions.length == 0) {
+      alert("No session selected");
+    } else {
+      await handlePost();
+    }
   };
 
   // Get data from day clicked and checked sessions and update data state with new infos
@@ -116,6 +122,8 @@ function Sessions({ dataSessions }: { dataSessions: Data }) {
                             value={session.slot}
                             onChange={handleChange}
                             type="checkbox"
+                            id={session.slot}
+                            name="slots"
                           />
                         </>
                       ) : (
