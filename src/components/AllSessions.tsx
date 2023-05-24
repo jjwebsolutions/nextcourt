@@ -86,7 +86,9 @@ export default function AllSessions() {
   if (userSession.length == 0) {
     return (
       <>
-        <p>No sessions</p>
+        <div className="flex w-4/12 flex-col bg-white p-4 text-center shadow">
+          <p>No sessions</p>
+        </div>
       </>
     );
   } else {

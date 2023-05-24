@@ -15,7 +15,7 @@ export default function Admin() {
         <p className="my-8 mt-20 flex justify-center text-3xl font-medium text-darkest">
           Admin
         </p>
-        <div className="  flex justify-center">
+        <div className=" flex justify-center text-xl">
           <p>List of sessions programmed</p>
         </div>
         <div className="mt-10  flex justify-center">
