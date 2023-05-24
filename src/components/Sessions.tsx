@@ -39,7 +39,11 @@ function Sessions({ dataSessions }: { dataSessions: Data }) {
     if (checkedSessions.length == 0) {
       alert("No session selected");
     } else {
-      await handlePost();
+      if (checkedSessions.length > 1) {
+        alert("Please select only one session");
+      } else {
+        await handlePost();
+      }
     }
   };
 
