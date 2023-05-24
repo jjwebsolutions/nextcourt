@@ -36,8 +36,6 @@ function Sessions({ dataSessions }: { dataSessions: Data }) {
 
   // Handle click on button
   const handleClick = async () => {
-    console.log(checkedSessions);
-
     if (checkedSessions.length == 0) {
       alert("No session selected");
     } else {
@@ -107,28 +105,29 @@ function Sessions({ dataSessions }: { dataSessions: Data }) {
         <div className="mb-10 text-2xl font-bold text-darkest">
           Sessions available for this day
         </div>
-        <div className="flex justify-center">
+        <div className="flex  justify-center">
           <ul className=" columns-2  text-xl font-medium text-darkest">
             {
               // Check if each session is available or not
               data.slots.map(
                 (session: { slot: string; available: boolean }, i: number) => {
                   return (
-                    <li className="m-1  flex max-w-max p-1 shadow" key={i}>
+                    <li className="flex     p-2 shadow" key={i}>
                       {session.available === true ? (
                         <>
                           <div className="mr-2">{session.slot}</div>
                           <input
+                            className="checkbox"
                             value={session.slot}
                             onChange={handleChange}
                             type="checkbox"
-                            id={session.slot}
-                            name="slots"
                           />
                         </>
                       ) : (
                         <>
-                          <div className="mr-2 bg-darkest">{session.slot}</div>
+                          <div className="mr-2 min-w-full bg-darkest">
+                            {session.slot}
+                          </div>
                         </>
                       )}
                     </li>

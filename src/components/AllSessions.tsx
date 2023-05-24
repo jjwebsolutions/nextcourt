@@ -92,12 +92,18 @@ export default function AllSessions() {
   } else {
     return (
       <>
-        <div>
+        <div className="flex flex-col bg-white p-4 shadow">
+          <div className="flex w-9/12 space-x-16 p-1 ">
+            <p>Date</p>
+            <p>Hour</p>
+            <p>Name</p>
+          </div>
           {userSession.map((session: Session, i: number) => {
             return (
-              <li className="mt-2 list-none" key={i}>
-                <span>The</span> {session.date} <span>at</span> {session.slots}{" "}
-                <span>by</span> {session.username}
+              <li className="mt-2 flex list-none" key={i}>
+                <div className="mr-5 mt-2 ">{session.date}</div>
+                <div className="mr-16 mt-2 ">{session.slots}</div>
+                <div className="mr-5 mt-2 ">{session.username}</div>
                 <button
                   onClick={() => void handleDeleteSession(session, i)}
                   className="btn"

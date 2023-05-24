@@ -98,11 +98,16 @@ const UserSessions = () => {
   } else {
     return (
       <>
-        <div>
+        <div className="flex flex-col bg-white p-4 shadow">
+          <div className="flex w-7/12 justify-between p-1 ">
+            <p>Date</p>
+            <p>Hour</p>
+          </div>
           {userSession.map((session: Session, i: number) => {
             return (
-              <li className="mt-2 list-none" key={i}>
-                <span>The</span> {session.date} <span>at</span> {session.slots}
+              <li className="mt-2 flex list-none" key={i}>
+                <div className="mr-5 mt-2 ">{session.date}</div>
+                <div className="mr-5 mt-2 ">{session.slots}</div>
                 <button
                   onClick={() => void handleDeleteSession(session, i)}
                   className="btn"
