@@ -73,6 +73,7 @@ export default function AllSessions() {
   } as {
     onSuccess: (data: []) => void;
   });
+
   // Handle Cancel button
   const handleDeleteSession = (session: Session, i: number) => {
     if (session) {
@@ -82,7 +83,6 @@ export default function AllSessions() {
   };
 
   // Display user sessions
-
   if (userSession.length == 0) {
     return (
       <>

@@ -106,7 +106,7 @@ function Sessions({ dataSessions }: { dataSessions: Data }) {
   return (
     <>
       <div className="bg-white   ">
-        <div className="mb-10 text-2xl font-bold text-darkest">
+        <div className="mb-10 mt-10 text-2xl font-bold text-darkest sm:mt-0">
           Sessions available for this day
         </div>
         <div className="flex  justify-center">

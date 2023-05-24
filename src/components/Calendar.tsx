@@ -16,13 +16,12 @@ type SessionData = {
 // Display the calendar
 function ReserveCalendar(): JSX.Element {
   const [date, onChange] = useState<Date | number>(new Date());
+  const [dateFormat, setDateFormat] = useState<string>("");
+  const [slots, setSlots] = useState([]);
   const [dataSession, setDataSession] = useState<SessionData>({
     date: "",
     slots: [],
   });
-  const [dateFormat, setDateFormat] = useState<string>("");
-
-  const [slots, setSlots] = useState([]);
 
   // Request new data everytimes dateFormat change
   api.day.getSlots.useQuery({ dateFormat: dateFormat }, {
@@ -83,7 +82,6 @@ function ReserveCalendar(): JSX.Element {
               }}
             />
           </div>
-
           <Sessions dataSessions={dataSession} />
         </div>
       </div>

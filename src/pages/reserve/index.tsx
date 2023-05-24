@@ -9,7 +9,7 @@ export default function Reserve() {
   return (
     <>
       <div>
-        <p className="mb-14 text-center text-3xl font-bold text-darkest">
+        <p className="mb-14 mt-12 text-center text-3xl font-bold text-darkest">
           Use this app to book a session or directly call us with the number
           below
         </p>
