@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { getSession } from "next-auth/react";
 import { api } from "~/utils/api";
 import LoadingSpinner from "./LoadingSpinner";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // Type interfaces
 type Data = {
   date: string;
@@ -38,10 +40,14 @@ function Sessions({ dataSessions }: { dataSessions: Data }) {
   // Handle click on button
   const handleClick = async () => {
     if (checkedSessions.length == 0) {
-      alert("No session selected");
+      toast.warn("No session selected", {
+        position: toast.POSITION.BOTTOM_CENTER,
+      });
     } else {
       if (checkedSessions.length > 1) {
-        alert("Please select only one session");
+        toast.warn("Please select only one session", {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
       } else {
         await handlePost();
       }
@@ -75,7 +81,11 @@ function Sessions({ dataSessions }: { dataSessions: Data }) {
           };
           if (orderData) {
             mutation.mutate(orderData);
-            alert("Thanks for your order" + user + "!");
+            toast.success("Thanks for your order" + user + " " + "!", {
+              position: toast.POSITION.BOTTOM_CENTER,
+              autoClose: false,
+            });
+
             window.location.replace("/profile");
           }
         }
@@ -113,6 +123,7 @@ function Sessions({ dataSessions }: { dataSessions: Data }) {
   return (
     <>
       <div className="bg-white   ">
+        <ToastContainer autoClose={false} />
         <div className="flex  justify-center">
           <ul className=" columns-2  text-xl font-medium text-darkest">
             {loading ? (
