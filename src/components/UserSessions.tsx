@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
+import LoadingSpinner from "./LoadingSpinner";
 
 const UserSessions = () => {
   // Type interfaces
@@ -23,6 +24,7 @@ const UserSessions = () => {
   const [trigger, setTrigger] = useState<boolean>(false);
   // Username
   const [username, setUsername] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
 
   // Mutation to delete order
   const mutationDeleteOrder = api.order.deleteOrder.useMutation();
@@ -39,6 +41,7 @@ const UserSessions = () => {
   api.order.getOrdersByUsername.useQuery({ username: username }, {
     onSuccess: (data) => {
       setUserSession(data);
+      setLoading(false);
     },
     queryKey: [userSession],
   } as {
@@ -89,6 +92,11 @@ const UserSessions = () => {
       setTrigger(true);
     }
   };
+
+  if (loading == true) {
+    return <LoadingSpinner />;
+  }
+
   if (userSession.length == 0) {
     return (
       <>
@@ -105,6 +113,7 @@ const UserSessions = () => {
             <p>Date</p>
             <p>Time</p>
           </div>
+
           {userSession.map((session: Session, i: number) => {
             return (
               <li className="mt-2 flex list-none" key={i}>

@@ -1,5 +1,6 @@
 import { api } from "src/utils/api";
 import { useState, useEffect } from "react";
+import LoadingSpinner from "./LoadingSpinner";
 // Display Profile page
 export default function AllSessions() {
   // Type interfaces
@@ -9,7 +10,7 @@ export default function AllSessions() {
     slots: string[];
     username: string;
   };
-
+  const [loading, setLoading] = useState<boolean>(true);
   // Data with sessions that user programmed
   const [userSession, setUserSession] = useState<Session[]>([]);
   // State that store what session is clicked to delete
@@ -31,6 +32,7 @@ export default function AllSessions() {
   api.order.getAllOrders.useQuery(undefined, {
     onSuccess: (data) => {
       setUserSession(data);
+      setLoading(false);
     },
   } as {
     onSuccess: (data: []) => void;
@@ -84,12 +86,12 @@ export default function AllSessions() {
 
   // Display user sessions
   if (userSession.length == 0) {
-    return (
-      <>
-        <div className="flex w-4/12 flex-col bg-white p-4 text-center shadow">
-          <p>No sessions</p>
-        </div>
-      </>
+    return loading ? (
+      <LoadingSpinner />
+    ) : (
+      <div className="flex w-4/12 flex-col bg-white p-4 text-center shadow">
+        <p>No sessions</p>
+      </div>
     );
   } else {
     return (

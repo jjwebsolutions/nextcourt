@@ -1,6 +1,6 @@
 import UserSessions from "~/components/UserSessions";
 import { useSession } from "next-auth/react";
-
+import { Suspense } from "react";
 // Display Profile page
 export default function Profil() {
   const { data: session, status } = useSession();
@@ -18,7 +18,9 @@ export default function Profil() {
         <p className="text-xl">Here are the sessions you have scheduled</p>
       </div>
       <div className=" mt-10  flex justify-center">
-        <UserSessions />
+        <Suspense fallback={<p>loading</p>}>
+          <UserSessions />
+        </Suspense>
       </div>
     </>
   );

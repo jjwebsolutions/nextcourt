@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { redirect } from "next/navigation";
 import { getSession } from "next-auth/react";
 import { api } from "~/utils/api";
-
+import LoadingSpinner from "./LoadingSpinner";
 // Type interfaces
 type Data = {
   date: string;
@@ -18,6 +18,7 @@ type OrderData = {
 };
 
 function Sessions({ dataSessions }: { dataSessions: Data }) {
+  const [loading, setLoading] = useState<boolean>(true);
   // data: day clicked by user and sessions available for this day
   const [data, setData] = useState<Data>(dataSessions);
   // State that store what sessions are checked
@@ -99,19 +100,24 @@ function Sessions({ dataSessions }: { dataSessions: Data }) {
 
   // Store the data from the day picked in Calendar in state data (will update when user click on another day)
   useEffect(() => {
+    console.log("hey");
+
     setData(dataSessions);
+    setLoading(true);
   }, [dataSessions]);
+  useEffect(() => {
+    setLoading(false);
+  }, [data]);
 
   // Display sessions available for the day clicked by user on Calendar
   return (
     <>
       <div className="bg-white   ">
-        <div className="mb-10 mt-10 text-2xl font-bold text-darkest sm:mt-0">
-          Sessions available for this day
-        </div>
         <div className="flex  justify-center">
           <ul className=" columns-2  text-xl font-medium text-darkest">
-            {
+            {loading ? (
+              <LoadingSpinner />
+            ) : (
               // Check if each session is available or not
               data.slots.map(
                 (session: { slot: string; available: boolean }, i: number) => {
@@ -138,7 +144,7 @@ function Sessions({ dataSessions }: { dataSessions: Data }) {
                   );
                 }
               )
-            }
+            )}
           </ul>
         </div>
         <div className="mt-10 text-center">
