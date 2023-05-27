@@ -2,7 +2,7 @@ import { useState, useEffect, Suspense } from "react";
 import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
 import LoadingSpinner from "./LoadingSpinner";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const UserSessions = () => {

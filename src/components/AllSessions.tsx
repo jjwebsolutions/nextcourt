@@ -1,6 +1,7 @@
 import { api } from "src/utils/api";
 import { useState, useEffect } from "react";
 import LoadingSpinner from "./LoadingSpinner";
+import { toast } from "react-toastify";
 // Display Profile page
 export default function AllSessions() {
   // Type interfaces
@@ -67,6 +68,9 @@ export default function AllSessions() {
           );
 
           setUserSession(newListOrder);
+          toast.success("Session deleted", {
+            position: toast.POSITION.BOTTOM_CENTER,
+          });
         }
       }
       setTrigger(false);
