@@ -123,7 +123,6 @@ function Sessions({ dataSessions }: { dataSessions: Data }) {
   return (
     <>
       <div className="bg-white   ">
-        <ToastContainer autoClose={false} />
         <div className="flex  justify-center">
           <ul className=" columns-2  text-xl font-medium text-darkest">
             {loading ? (

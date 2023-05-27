@@ -5,7 +5,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { api } from "~/utils/api";
 import "~/styles/globals.css";
-
+import { ToastContainer } from "react-toastify";
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
@@ -14,6 +14,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
     <SessionProvider session={session}>
       <Header />
       <Component {...pageProps} />
+      <ToastContainer />
       <Footer />
     </SessionProvider>
   );
