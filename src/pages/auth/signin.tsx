@@ -6,7 +6,8 @@ import type {
 } from "next";
 import { getCsrfToken } from "next-auth/react";
 import { signIn } from "next-auth/react";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function SignIn({
   csrfToken,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
@@ -23,11 +24,28 @@ export default function SignIn({
     // next-auth signIn function
     signIn("credentials", {
       callbackUrl: "/",
-      redirect: true,
+      redirect: false,
       email: email,
       password: password,
     })
-      .then((error) => console.log(error))
+      .then((error) => {
+        if (error) {
+          console.log(error.status);
+          if (error.status == 401) {
+            toast.warn("Please check your email and password", {
+              position: toast.POSITION.BOTTOM_CENTER,
+            });
+            console.log(error.status);
+          }
+          if (error.status == 200) {
+            window.location.replace("/");
+          }
+        } else {
+          toast.warn("Internal error", {
+            position: toast.POSITION.BOTTOM_CENTER,
+          });
+        }
+      })
       .catch((error) => console.log(error));
   };
   return (

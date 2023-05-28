@@ -1,4 +1,3 @@
-// Display Profile page
 export default function Error() {
   return (
     <>

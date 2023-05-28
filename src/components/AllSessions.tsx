@@ -2,6 +2,7 @@ import { api } from "src/utils/api";
 import { useState, useEffect } from "react";
 import LoadingSpinner from "./LoadingSpinner";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // Display Profile page
 export default function AllSessions() {
   // Type interfaces

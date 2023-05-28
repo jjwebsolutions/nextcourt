@@ -1,5 +1,3 @@
-import { api } from "src/utils/api";
-import { useState, useEffect } from "react";
 import AllSessions from "~/components/AllSessions";
 import { useSession } from "next-auth/react";
 // Display Profile page
