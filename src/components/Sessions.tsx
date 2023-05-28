@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import { redirect } from "next/navigation";
 import { getSession } from "next-auth/react";
 import { api } from "~/utils/api";
+import { toast } from "react-toastify";
 import LoadingSpinner from "./LoadingSpinner";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 // Type interfaces
 type Data = {
   date: string;
@@ -20,6 +21,7 @@ type OrderData = {
 };
 
 function Sessions({ dataSessions }: { dataSessions: Data }) {
+  // Loading state
   const [loading, setLoading] = useState<boolean>(true);
   // data: day clicked by user and sessions available for this day
   const [data, setData] = useState<Data>(dataSessions);
@@ -110,8 +112,6 @@ function Sessions({ dataSessions }: { dataSessions: Data }) {
 
   // Store the data from the day picked in Calendar in state data (will update when user click on another day)
   useEffect(() => {
-    console.log("hey");
-
     setData(dataSessions);
     setLoading(true);
   }, [dataSessions]);

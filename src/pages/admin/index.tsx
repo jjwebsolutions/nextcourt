@@ -1,11 +1,13 @@
 import AllSessions from "~/components/AllSessions";
 import { useSession } from "next-auth/react";
+
 // Display Profile page
 export default function Admin() {
   const { data: session, status } = useSession();
   if (status === "unauthenticated") {
     return <p className=" flex justify-center text-4xl">Access Denied</p>;
   }
+
   // Display user sessions
   return (
     <>

@@ -1,6 +1,7 @@
 import UserSessions from "~/components/UserSessions";
 import { useSession } from "next-auth/react";
 import { Suspense } from "react";
+
 // Display Profile page
 export default function Profil() {
   const { data: session, status } = useSession();

@@ -1,10 +1,11 @@
 import React, { Suspense, useEffect, useState } from "react";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
 import { format } from "date-fns";
 import { api } from "~/utils/api";
+import Calendar from "react-calendar";
 import Sessions from "./Sessions";
 import LoadingSpinner from "./LoadingSpinner";
+import "react-calendar/dist/Calendar.css";
+
 type SessionData = {
   date: string;
   slots: {

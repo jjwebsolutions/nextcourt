@@ -1,4 +1,4 @@
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect } from "react";
 import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
 import LoadingSpinner from "./LoadingSpinner";

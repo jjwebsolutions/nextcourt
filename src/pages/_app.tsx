@@ -1,11 +1,13 @@
 import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
+import { api } from "~/utils/api";
+import { ToastContainer } from "react-toastify";
 import Header from "./Header";
 import Footer from "./Footer";
-import { api } from "~/utils/api";
+
 import "~/styles/globals.css";
-import { ToastContainer } from "react-toastify";
+
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },

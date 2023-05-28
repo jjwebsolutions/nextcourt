@@ -30,12 +30,10 @@ export default function SignIn({
     })
       .then((error) => {
         if (error) {
-          console.log(error.status);
           if (error.status == 401) {
             toast.warn("Please check your email and password", {
               position: toast.POSITION.BOTTOM_CENTER,
             });
-            console.log(error.status);
           }
           if (error.status == 200) {
             window.location.replace("/");

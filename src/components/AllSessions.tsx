@@ -1,8 +1,9 @@
 import { api } from "src/utils/api";
-import { useState, useEffect } from "react";
-import LoadingSpinner from "./LoadingSpinner";
+import { useState } from "react";
 import { toast } from "react-toastify";
+import LoadingSpinner from "./LoadingSpinner";
 import "react-toastify/dist/ReactToastify.css";
+
 // Display Profile page
 export default function AllSessions() {
   // Type interfaces
@@ -12,6 +13,8 @@ export default function AllSessions() {
     slots: string[];
     username: string;
   };
+
+  // Loading state
   const [loading, setLoading] = useState<boolean>(true);
   // Data with sessions that user programmed
   const [userSession, setUserSession] = useState<Session[]>([]);

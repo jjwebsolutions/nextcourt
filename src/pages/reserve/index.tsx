@@ -1,8 +1,10 @@
 import Calendar from "../../components/Calendar";
 import { useSession } from "next-auth/react";
-// Display reserve page
+
 export default function Reserve() {
   const { data: session, status } = useSession();
+
+  // Display reserve page
   if (status === "unauthenticated") {
     return <p className=" flex justify-center text-4xl">Access Denied</p>;
   }
