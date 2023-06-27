@@ -5,7 +5,7 @@ import { api } from "~/utils/api";
 import { toast } from "react-toastify";
 import LoadingSpinner from "./LoadingSpinner";
 import "react-toastify/dist/ReactToastify.css";
-
+import { useRouter } from "next/router";
 // Type interfaces
 type Data = {
   date: string;
@@ -29,6 +29,7 @@ function Sessions({ dataSessions }: { dataSessions: Data }) {
   const [checkedSessions, setCheckedSessions] = useState<string[]>([]);
   // Mutation to post order
   const mutation = api.order.postOrder.useMutation();
+  const router = useRouter();
 
   // Fetch user infos from Session
   const getUser = async () => {
@@ -87,8 +88,7 @@ function Sessions({ dataSessions }: { dataSessions: Data }) {
               position: toast.POSITION.BOTTOM_CENTER,
               autoClose: false,
             });
-
-            window.location.replace("/profile");
+            router.push("/profile");
           }
         }
 

@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 // Display Profile page
 export default function AllSessions() {
-  // Type interfaces
+  // Type interface
   type Session = {
     id: string;
     date: string;

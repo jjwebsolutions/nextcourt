@@ -63,8 +63,8 @@ export default function SignIn({
           <input
             className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-darkest shadow focus:outline-none"
             id="email"
-            type="text"
-            placeholder="Password"
+            type="email"
+            placeholder="example@example.com"
           />
 
           <label
@@ -77,7 +77,7 @@ export default function SignIn({
             className="focus:shadow-outline border-red-500 mb-3 w-full appearance-none rounded border px-3 py-2 leading-tight text-darkest shadow focus:outline-none"
             id="password"
             type="password"
-            placeholder="******************"
+            placeholder="****************"
           />
 
           <div className="mt-3 flex items-center justify-between">
