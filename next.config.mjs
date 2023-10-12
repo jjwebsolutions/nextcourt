@@ -8,9 +8,7 @@ await import("./src/env.mjs");
 const config = {
   reactStrictMode: true,
   transpilePackages: ["awesome_module"],
-  experimental: {
-    appDir: true,
-  },
+  experimental: {},
   /**
    * If you have `experimental: { appDir: true }` set, then you must comment the below `i18n` config
    * out.
